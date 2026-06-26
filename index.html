@@ -1,0 +1,35 @@
+<!-- Body fragment for the House Cup Shiny UI.
+     The <head> (fonts, CSS, React/Babel CDN, error handler) is built in app.R
+     via tags$head(), so Shiny wraps this fragment in a full page and injects
+     its own jQuery + shiny.js into the head — which is what gives the
+     front-end window.Shiny. The React app itself lives in www/app.js. -->
+
+<div class="particles" id="particles" aria-hidden="true"></div>
+<div id="root"></div>
+
+<script>
+  // Generate floating dust motes
+  (function () {
+    const layer = document.getElementById('particles');
+    if (!layer) return;
+    const count = window.innerWidth < 600 ? 10 : 20;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('span');
+      p.className = 'particle' + (Math.random() < 0.4 ? ' dark' : '');
+      p.style.left = (Math.random() * 100) + 'vw';
+      const dur = 22 + Math.random() * 22;
+      p.style.animationDuration = dur + 's';
+      p.style.animationDelay = (-Math.random() * dur) + 's';
+      const size = 1.5 + Math.random() * 2;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.setProperty('--drift', (Math.random() * 70 - 35) + 'px');
+      p.style.opacity = 0.2 + Math.random() * 0.35;
+      layer.appendChild(p);
+    }
+  })();
+</script>
+
+<!-- The React app (JSX, transpiled in-browser by Babel). Lives in www/app.js
+     so its inline-style double-braces never collide with Shiny's template. -->
+<script type="text/babel" data-presets="react" src="app.js?v=7"></script>
